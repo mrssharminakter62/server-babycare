@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 
-  const uri = `mongodb+srv://careMaria:mim123@cluster0.9e8bh.mongodb.net/dayCare?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9e8bh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const serviceCollection = client.db("dayCare").collection("classes");
@@ -108,4 +108,4 @@ app.post('/adminLevel', (req, res)=>{
 
 });
   
-  app.listen(port)
+  app.listen(port, ()=>console.log('listening to', port))
